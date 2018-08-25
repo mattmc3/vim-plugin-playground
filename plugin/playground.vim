@@ -2,10 +2,9 @@ if !has("python3") == 1
     echo "Python 3 support is required. You can test this in Vim by calling ':has(\"Python3\")'"
 endif
 
+let g:os_sep = "/"
 if has("win32")
-    let g:os_sep = g:os_sep. "\\"
-else
-    let g:os_sep = g:os_sep. "/"
+    let g:os_sep = "\\"
 endif
 
 " Root path to this file:
