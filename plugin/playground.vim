@@ -2,14 +2,14 @@ if !has("python3") == 1
     echo "Python 3 support is required. You can test this in Vim by calling ':has(\"Python3\")'"
 endif
 
+if has("win32")
+    let g:os_sep = g:os_sep. "\\"
+else
+    let g:os_sep = g:os_sep. "/"
+endif
+
 " Root path to this file:
 let g:vim_sql_script_path = expand('<sfile>:p:h')
-
-if has("win32")
-    let g:vim_sql_script_path = g:vim_sql_script_path. "\\hello\\"
-else
-    let g:vim_sql_script_path = g:vim_sql_script_path. "/hello/"
-endif
 
 " Set import path to include plugin directory.
 py3 << py3eof
@@ -26,13 +26,7 @@ if VIM_SQL_SCRIPT_PATH not in sys.path:
 # vim.command("let g:vim_sql_script_path="+VIM_SQL_SCRIPT_PATH)
 py3eof
 
-" let g:vim_sql_script_path = g:vim_sql_script_path. "\\hello\\"
-
-if has("win32")
-    exec "py3file ". g:vim_sql_script_path. "\\hello.py"
-else
-    exec "py3file ". g:vim_sql_script_path. "/hello.py"
-endif
+exec "py3file " . g:vim_sql_script_path . g:os_sep . "hello" . g:os_sep . "hello.py"
 
 " Add commands we can keybind, to make life easier:
 " command! -range VimSqlServers py3 vimsql.show_database_list() 
